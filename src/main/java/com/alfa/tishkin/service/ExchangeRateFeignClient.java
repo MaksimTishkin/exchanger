@@ -1,4 +1,4 @@
-package com.alfa.tishkin.services;
+package com.alfa.tishkin.service;
 
 import com.alfa.tishkin.models.ExchangeRateResponse;
 import org.springframework.cloud.openfeign.FeignClient;

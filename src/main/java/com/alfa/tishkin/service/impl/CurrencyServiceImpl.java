@@ -1,6 +1,10 @@
-package com.alfa.tishkin.services;
+package com.alfa.tishkin.service.impl;
 
+import com.alfa.tishkin.exception.IncorrectCurrencyCodeException;
 import com.alfa.tishkin.models.ExchangeRateResponse;
+import com.alfa.tishkin.service.CurrencyService;
+import com.alfa.tishkin.service.ExchangeRateFeignClient;
+import com.alfa.tishkin.service.GifsFeignClient;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,9 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     private double getLatestCurrencyExchangeRate(String currencyCode) {
         ExchangeRateResponse response = exchangeRateFeignClient.getLatestRate(currencyCode);
+        if (response.getRates().isEmpty()) {
+            throw new IncorrectCurrencyCodeException("Incorrect currency code - " + currencyCode);
+        }
         return response.getRates().get(currencyCode);
     }
 

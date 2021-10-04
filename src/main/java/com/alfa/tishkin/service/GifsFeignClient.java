@@ -1,4 +1,4 @@
-package com.alfa.tishkin.services;
+package com.alfa.tishkin.service;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

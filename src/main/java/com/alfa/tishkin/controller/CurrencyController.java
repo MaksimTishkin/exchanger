@@ -1,6 +1,6 @@
-package com.alfa.tishkin.controllers;
+package com.alfa.tishkin.controller;
 
-import com.alfa.tishkin.services.CurrencyService;
+import com.alfa.tishkin.service.CurrencyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

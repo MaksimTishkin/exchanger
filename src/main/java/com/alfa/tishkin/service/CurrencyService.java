@@ -1,4 +1,4 @@
-package com.alfa.tishkin.services;
+package com.alfa.tishkin.service;
 
 public interface CurrencyService {
 

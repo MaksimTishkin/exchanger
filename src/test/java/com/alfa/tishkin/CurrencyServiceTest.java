@@ -1,9 +1,10 @@
 package com.alfa.tishkin;
 
+import com.alfa.tishkin.exception.IncorrectCurrencyCodeException;
 import com.alfa.tishkin.models.ExchangeRateResponse;
-import com.alfa.tishkin.services.CurrencyService;
-import com.alfa.tishkin.services.ExchangeRateFeignClient;
-import com.alfa.tishkin.services.GifsFeignClient;
+import com.alfa.tishkin.service.CurrencyService;
+import com.alfa.tishkin.service.ExchangeRateFeignClient;
+import com.alfa.tishkin.service.GifsFeignClient;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -57,5 +58,19 @@ public class CurrencyServiceTest {
         verify(mockExchangeClient, times(1)).getLatestRate(currencyCode);
         verify(mockExchangeClient, times(1)).getHistoricalRate(any(String.class), eq(currencyCode));
         verify(mockGifsClient, times(1)).getJsonFromGiphy(tagForGif);
+    }
+
+    @Test
+    public void get_gifUrl_thenReturnMessageThatCurrencyCodeIncorrect() {
+        String incorrectCurrencyCode = "ERR";
+        ExchangeRateResponse rate = new ExchangeRateResponse();
+        rate.setRates(new HashMap<>());
+        String expectedResponse = "Incorrect currency code - " + incorrectCurrencyCode;
+        when(mockExchangeClient.getLatestRate(incorrectCurrencyCode))
+                .thenReturn(rate);
+        IncorrectCurrencyCodeException thrown = Assertions.assertThrows(IncorrectCurrencyCodeException.class,
+                () -> currencyService.getGifByCurrencyCode(incorrectCurrencyCode));
+        Assertions.assertEquals(expectedResponse, thrown.getMessage());
+        verify(mockExchangeClient, times(1)).getLatestRate(incorrectCurrencyCode);
     }
 }

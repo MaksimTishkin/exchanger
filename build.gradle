@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
     implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-aop')
     implementation('org.springframework.cloud:spring-cloud-starter-openfeign:3.0.4')
     implementation('com.google.code.gson:gson:2.8.8')
     testImplementation('org.springframework.boot:spring-boot-starter-test')
